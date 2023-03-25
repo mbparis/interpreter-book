@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mbparis/interpreter-book/token"
+	"github.com/mbparis/interpreter-book/monkey/token"
 )
 
 func main() {
