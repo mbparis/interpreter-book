@@ -36,3 +36,15 @@ const (
 func Hello() string {
 	return "world"
 }
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+func LookupIdent(key string) TokenType {
+	if val, ok := keywords[key]; ok {
+		return val
+	}
+	return IDENT
+}

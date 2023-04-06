@@ -1,17 +1,14 @@
 package lexer_test
 
 import (
+	"fmt"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
 	"github.com/mbparis/interpreter-book/lexer"
 	"github.com/mbparis/interpreter-book/monkey/token"
 )
-
-func wrapTokenType(toWrap string) token.TokenType {
-	return token.TokenType(toWrap)
-
-}
 
 var _ = Describe("Lexer", func() {
 	Describe("will iterate over source code; base set", Ordered, func() {
@@ -52,46 +49,47 @@ var _ = Describe("Lexer", func() {
 		DescribeTable("outputting source code as tokens",
 			func(tokenType token.TokenType, tokenLiteral string) {
 				actual := sut.NextToken()
+				fmt.Printf("__actual: %+v", actual)
 				Expect(actual.Type).To(Equal(tokenType))
 				Expect(actual.Literal).To(Equal(tokenLiteral))
 			},
-			Entry(" ", token.TokenType(token.LET), "let"),
-			Entry(" ", token.TokenType(token.IDENT), "five"),
-			Entry(" ", token.TokenType(token.ASSIGN), "="),
-			Entry(" ", token.TokenType(token.INT), "5"),
-			Entry(" ", token.TokenType(token.SEMICOLON), ";"),
-			Entry(" ", token.TokenType(token.LET), "let"),
-			Entry(" ", token.TokenType(token.IDENT), "ten"),
-			Entry(" ", token.TokenType(token.ASSIGN), "="),
-			Entry(" ", token.TokenType(token.INT), "10"),
-			Entry(" ", token.TokenType(token.SEMICOLON), ";"),
-			Entry(" ", token.TokenType(token.LET), "let"),
-			Entry(" ", token.TokenType(token.IDENT), "add"),
-			Entry(" ", token.TokenType(token.ASSIGN), "="),
-			Entry(" ", token.TokenType(token.FUNCTION), "fn"),
-			Entry(" ", token.TokenType(token.LPAREN), "("),
-			Entry(" ", token.TokenType(token.IDENT), "x"),
-			Entry(" ", token.TokenType(token.COMMA), ","),
-			Entry(" ", token.TokenType(token.IDENT), "y"),
-			Entry(" ", token.TokenType(token.RPAREN), ")"),
-			Entry(" ", token.TokenType(token.LBRACE), "{"),
-			Entry(" ", token.TokenType(token.IDENT), "x"),
-			Entry(" ", token.TokenType(token.PLUS), "+"),
-			Entry(" ", token.TokenType(token.IDENT), "y"), //
-			Entry(" ", token.TokenType(token.SEMICOLON), ";"),
-			Entry(" ", token.TokenType(token.RBRACE), "}"),
-			Entry(" ", token.TokenType(token.SEMICOLON), ";"),
-			Entry(" ", token.TokenType(token.LET), "let"),
-			Entry(" ", token.TokenType(token.IDENT), "result"),
-			Entry(" ", token.TokenType(token.ASSIGN), "="),
-			Entry(" ", token.TokenType(token.IDENT), "add"),
-			Entry(" ", token.TokenType(token.LPAREN), "("),
-			Entry(" ", token.TokenType(token.IDENT), "five"),
-			Entry(" ", token.TokenType(token.COMMA), ","),
-			Entry(" ", token.TokenType(token.IDENT), "ten"),
-			Entry(" ", token.TokenType(token.RPAREN), ")"),
-			Entry(" ", token.TokenType(token.SEMICOLON), ";"),
-			Entry(" ", token.TokenType(token.EOF), ""),
+			Entry("when LET", token.TokenType(token.LET), "let"),
+			Entry("when IDENT", token.TokenType(token.IDENT), "five"),
+			Entry("when ASSIGN", token.TokenType(token.ASSIGN), "="),
+			Entry("when INT", token.TokenType(token.INT), "5"),
+			Entry("when SEMICOLON", token.TokenType(token.SEMICOLON), ";"),
+			Entry("when LET", token.TokenType(token.LET), "let"),
+			Entry("when IDENT", token.TokenType(token.IDENT), "ten"),
+			Entry("when ASSIGN", token.TokenType(token.ASSIGN), "="),
+			Entry("when INT", token.TokenType(token.INT), "10"),
+			Entry("when SEMICOLON", token.TokenType(token.SEMICOLON), ";"),
+			Entry("when LET", token.TokenType(token.LET), "let"),
+			Entry("when IDENT", token.TokenType(token.IDENT), "add"),
+			Entry("when ASSIGN", token.TokenType(token.ASSIGN), "="),
+			Entry("when FUNCTION", token.TokenType(token.FUNCTION), "fn"),
+			Entry("when LPAREN", token.TokenType(token.LPAREN), "("),
+			Entry("when IDENT", token.TokenType(token.IDENT), "x"),
+			Entry("when COMMA", token.TokenType(token.COMMA), ","),
+			Entry("when IDENT", token.TokenType(token.IDENT), "y"),
+			Entry("when RPAREN", token.TokenType(token.RPAREN), ")"),
+			Entry("when LBRACE", token.TokenType(token.LBRACE), "{"),
+			Entry("when IDENT", token.TokenType(token.IDENT), "x"),
+			Entry("when PLUS", token.TokenType(token.PLUS), "+"),
+			Entry("when IDENT", token.TokenType(token.IDENT), "y"), //
+			Entry("when SEMICOLON", token.TokenType(token.SEMICOLON), ";"),
+			Entry("when RBRACE", token.TokenType(token.RBRACE), "}"),
+			Entry("when SEMICOLON", token.TokenType(token.SEMICOLON), ";"),
+			Entry("when LET", token.TokenType(token.LET), "let"),
+			Entry("when IDENT", token.TokenType(token.IDENT), "result"),
+			Entry("when ASSIGN", token.TokenType(token.ASSIGN), "="),
+			Entry("when IDENT", token.TokenType(token.IDENT), "add"),
+			Entry("when LPAREN", token.TokenType(token.LPAREN), "("),
+			Entry("when IDENT", token.TokenType(token.IDENT), "five"),
+			Entry("when COMMA", token.TokenType(token.COMMA), ","),
+			Entry("when IDENT", token.TokenType(token.IDENT), "ten"),
+			Entry("when RPAREN", token.TokenType(token.RPAREN), ")"),
+			Entry("when SEMICOLON", token.TokenType(token.SEMICOLON), ";"),
+			Entry("when EOF", token.TokenType(token.EOF), ""),
 		)
 
 	})
